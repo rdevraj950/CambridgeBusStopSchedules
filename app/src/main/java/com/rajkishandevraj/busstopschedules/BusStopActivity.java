@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
-
+//This entire class needs to be refactored into a Repository pattern
 public class BusStopActivity extends AppCompatActivity {
     private String url;
     private SwipeRefreshLayout refreshSwipe;
