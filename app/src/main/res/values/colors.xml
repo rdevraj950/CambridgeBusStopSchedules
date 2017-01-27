@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#cfd8dc</color>
+    <color name="colorPrimaryDark">#263238</color>
+    <color name="colorAccent">#607d8b</color>
+    <color name="onehundred">#CFD8DC</color>
+    <color name="twohundred">#B0BEC5</color>
+    <color name="threehundred">#90A4AE</color>
+    <color name="fourhundred">#78909C</color>
+    <color name="fivehundred">#607d8b</color>
+    <color name="sixhundred">#546e7a</color>
+    <color name="sevenhundred">#455A64</color>
+    <color name="eighthundred">#37474F</color>
+    <color name="colorAccent1">#607d8b</color>
+    <color name="primary_text_material_light">@color/onehundred</color>
+
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Cambridge Bus Stops</string>
+    <string name="blank"></string>
+    <string name="refresh">Refresh</string>
+</resources>

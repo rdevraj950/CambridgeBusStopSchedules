@@ -1,0 +1,14 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    </style>
+
+    <style name="BusStopScheduleTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+    <style name="BusStopScheduleTheme" parent="Theme.AppCompat.Light">
+
+
+    </style>
+
+</resources>
