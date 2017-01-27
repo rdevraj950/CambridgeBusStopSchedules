@@ -43,11 +43,18 @@ public class ListOfBusStopsActivity extends AppCompatActivity {
             txtView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             txtView.setTextSize(15);
 
+            /*May have been better to create Factory to sort the URL and the Names of the bus stops or even to deal with creation of the Rows*/
+            //Pattern is compiled from a string (RegExp)
+            //Matcher class seems to store the pattern and the variable to which the pattern will be 'matched'
             Matcher match = Pattern.compile("stopName=").matcher(url);
-            while(match.find()) {
+            //match.find() finds the next instance where the pattern and the matcher match
+            if(match.find()) {
+                //Takes the index of the offset of the matched result and the url length to return the required substring
+                //and replaces the '+' with spaces adding \n at the start and end
                 txtView.setText("\n" + url.substring(match.end(), url.length()).replace('+', ' ') + "\n");
             }
 
+            //Make the tblRow clickable
             tblRow.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View arg0) {
                     Intent myIntent = new Intent(ListOfBusStopsActivity.this, BusStopActivity.class);
