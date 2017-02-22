@@ -2,4 +2,7 @@
     <string name="app_name">Cambridge Bus Stops</string>
     <string name="blank"></string>
     <string name="refresh">Refresh</string>
+    <string name="bus_card_number">Bus Number:&#160;</string>
+    <string name="bus_card_destination">Destination:&#160;</string>
+    <string name="bus_card_arrival_time">Arrival Time:&#160;</string>
 </resources>
