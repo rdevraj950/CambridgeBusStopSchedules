@@ -7,16 +7,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.rajkishandevraj.busstopschedules.ArrayAdapter.BusArrayAdapter;
-import com.rajkishandevraj.busstopschedules.AsyncTaskListeners.VixConnectAsyncTaskListener;
 import com.rajkishandevraj.busstopschedules.AsyncTasks.VixConnectBusArrivalsAsyncTask;
+import com.rajkishandevraj.busstopschedules.Bus.DebugBus;
 import com.rajkishandevraj.busstopschedules.Bus.IBus;
 import com.rajkishandevraj.busstopschedules.BusProviders.DebugBusProvider;
-import com.rajkishandevraj.busstopschedules.BusProviders.IBusProvider;
+import com.rajkishandevraj.busstopschedules.Factories.BusProviderFactory;
 
 public class BusStopActivity extends AppCompatActivity {
     private String _url;
     private SwipeRefreshLayout _refreshSwipe;
-    private IBusProvider iBusProvider;
+    private ArrayAdapter<IBus> busArrayAdapter;
+    private DebugBusProvider debugBusProvider;
+    private VixConnectBusArrivalsAsyncTask vixConnectBusArrivalsAsyncTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,27 +26,25 @@ public class BusStopActivity extends AppCompatActivity {
 
         Bundle busStopURLBndl = getIntent().getExtras();
         _url = "http://cambridgeshire.acisconnect.com/Text/WebDisplay.aspx?stopRef=" + busStopURLBndl.getString("busStopUrl");
-
-        iBusProvider = new DebugBusProvider();
-
-        new VixConnectBusArrivalsAsyncTask(_url, this, new VixConnectAsyncTaskListener()).execute();
+        debugBusProvider = new DebugBusProvider();
+        vixConnectBusArrivalsAsyncTask = new VixConnectBusArrivalsAsyncTask(_url, this, debugBusProvider);
+        vixConnectBusArrivalsAsyncTask.execute();
         populateListView();
 
         _refreshSwipe = (SwipeRefreshLayout) findViewById(R.id.swipeFresh);
         _refreshSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new VixConnectBusArrivalsAsyncTask(_url, BusStopActivity.this, new VixConnectAsyncTaskListener()).execute();
+                vixConnectBusArrivalsAsyncTask.execute();
                 populateListView();
                 _refreshSwipe.setRefreshing(false);
             }
         });
     }
     private void populateListView(){
-        ArrayAdapter<IBus> busArrayAdapter = new BusArrayAdapter(this, R.layout.bus_card, iBusProvider.getBuses());
+        busArrayAdapter =  new BusArrayAdapter(this, R.layout.bus_card, debugBusProvider.getBuses());
 
         ListView listView = (ListView) findViewById(R.id.listViewBusStopSchedule);
         listView.setAdapter(busArrayAdapter);
     }
-
 }

@@ -3,9 +3,11 @@ package com.rajkishandevraj.busstopschedules.AsyncTasks;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.TextView;
 
-import com.rajkishandevraj.busstopschedules.AsyncTaskListeners.IAsyncTaskListener;
+import com.rajkishandevraj.busstopschedules.BusProviders.DebugBusProvider;
+import com.rajkishandevraj.busstopschedules.BusProviders.IBusProvider;
 import com.rajkishandevraj.busstopschedules.R;
 
 import org.jsoup.Jsoup;
@@ -16,30 +18,32 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class VixConnectBusArrivalsAsyncTask extends AsyncTask<String, Void, Document>{
+public class VixConnectBusArrivalsAsyncTask extends AsyncTask<Void, Void, Document>{
     private Context _context;
-    private IAsyncTaskListener _iAsyncTaskListener;
+    private IBusProvider _iBusProvider;
     private String _URL;
 
-    public VixConnectBusArrivalsAsyncTask(String URL, Context context, IAsyncTaskListener iAsyncTaskListener) {
+    public VixConnectBusArrivalsAsyncTask(String URL, Context context, IBusProvider iBusProvider) {
         _context = context;
-        _iAsyncTaskListener = iAsyncTaskListener;
+        _iBusProvider = iBusProvider;
         _URL = URL;
     }
 
     @Override
-    protected Document doInBackground(String... params) {
+    protected Document doInBackground(Void... params) {
+        //Log.d("Im in DoBack", "HeloMe");
+        //Log.e("Help", "I am HerE");
         try {
-            return Jsoup.connect(_URL).get();
+            return Jsoup.connect("http://www.google.com").get();
         } catch (IOException e) {
-            ((Activity)_context).setTitle("fail");
+            ((Activity) _context).setTitle("Failed");
         }
         return null;
     }
 
     @Override
     protected void onPostExecute(Document doc) {
-        _iAsyncTaskListener.OnPostExecuteComplete(_context, doc);
+        _iBusProvider.OnPostExecuteComplete(_context, doc);
         lastUpdated();
     }
 

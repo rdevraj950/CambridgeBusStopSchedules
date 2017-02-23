@@ -1,9 +1,7 @@
 package com.rajkishandevraj.busstopschedules.BusProviders;
-
 import android.app.Activity;
 import android.content.Context;
 
-import com.rajkishandevraj.busstopschedules.AsyncTaskListeners.IAsyncTaskListener;
 import com.rajkishandevraj.busstopschedules.Bus.Bus;
 import com.rajkishandevraj.busstopschedules.Bus.IBus;
 
@@ -12,8 +10,8 @@ import org.jsoup.select.Elements;
 
 import java.util.List;
 
-public class VixConnectBusProvider implements IBusProvider, IAsyncTaskListener<Document>{
-    private List<IBus> listOfBuses;
+public class VixConnectBusProvider implements IBusProvider{
+    private static List<IBus> listOfBuses;
     @Override
     public List<IBus> getBuses() {
         return listOfBuses;
@@ -32,7 +30,6 @@ public class VixConnectBusProvider implements IBusProvider, IAsyncTaskListener<D
         Bus tmpBus = new Bus();
         for (int i = 0; i < departures.size(); i++) {
             if (counter == 1){
-                tmpBus = new Bus();
                 tmpBus.setBusNumber(departures.get(i).ownText());
                 counter++;
                 continue;
@@ -58,9 +55,9 @@ public class VixConnectBusProvider implements IBusProvider, IAsyncTaskListener<D
             if (counter == 6){
                 counter = 0;
                 counter++;
-                listOfBuses.add(0, tmpBus);
                 continue;
             }
         }
     }
+
 }
