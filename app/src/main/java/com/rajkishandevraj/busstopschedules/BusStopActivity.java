@@ -41,7 +41,7 @@ public class BusStopActivity extends AppCompatActivity {
         });
     }
     private void populateListView(){
-        ArrayAdapter<IBus> busArrayAdapter = new BusArrayAdapter(this, R.layout.bus_card, (iBusProvider.getBuses()));
+        ArrayAdapter<IBus> busArrayAdapter = new BusArrayAdapter(this, R.layout.bus_card, iBusProvider.getBuses());
 
         ListView listView = (ListView) findViewById(R.id.listViewBusStopSchedule);
         listView.setAdapter(busArrayAdapter);
