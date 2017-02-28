@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface IBusProvider {
     List<IBus> getBuses();
-    void OnPostExecuteComplete(Context context, Document document);
+    void OnPostExecuteComplete(Document document);
 }

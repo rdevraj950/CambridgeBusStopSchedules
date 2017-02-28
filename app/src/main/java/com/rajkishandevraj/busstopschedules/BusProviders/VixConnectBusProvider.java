@@ -1,6 +1,4 @@
 package com.rajkishandevraj.busstopschedules.BusProviders;
-import android.app.Activity;
-import android.content.Context;
 
 import com.rajkishandevraj.busstopschedules.Bus.Bus;
 import com.rajkishandevraj.busstopschedules.Bus.IBus;
@@ -18,13 +16,8 @@ public class VixConnectBusProvider implements IBusProvider{
     }
 
     @Override
-    public void OnPostExecuteComplete(Context context, Document document) {
-        Elements details = document.getElementsByClass("emphasise");
+    public void OnPostExecuteComplete(Document document) {
         Elements departures = document.getElementsByClass("body-cell");
-
-        try {
-            ((Activity)context).setTitle(details.get(1).text());
-        } catch(Exception e){((Activity)context).setTitle("fail");}
 
         int counter = 1;
         Bus tmpBus = new Bus();
