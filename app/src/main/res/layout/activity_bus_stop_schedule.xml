@@ -10,18 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.rajkishandevraj.busstopschedules.BusStopActivity">
 
-    <!--
-    <Button
-        android:text="@string/refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/refreshBtn"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-    -->
     <TextView
         android:id="@+id/lastUpdatedTxtView"
         android:textSize="12sp"
@@ -37,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ScrollView
-            android:id="@+id/scrollView2"
+            android:id="@+id/bus_arrival_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -46,10 +34,6 @@
             android:fillViewport="true"
             android:scrollbars="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/busStopSchedulesTxtView"/>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
