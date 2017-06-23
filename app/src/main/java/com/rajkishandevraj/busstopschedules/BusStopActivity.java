@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
+
+import static java.text.DateFormat.getDateInstance;
+
 //This entire class needs to be refactored into a Repository pattern
 public class BusStopActivity extends AppCompatActivity {
     private String url;
@@ -28,27 +31,31 @@ public class BusStopActivity extends AppCompatActivity {
         url = "http://cambridgeshire.acisconnect.com/Text/WebDisplay.aspx?stopRef=" + busStopURLBndl.getString("busStopUrl");
 
         new VixConnectScraper().execute();
+        lastUpdated();
 
         refreshSwipe = (SwipeRefreshLayout) findViewById(R.id.swipeFresh);
         refreshSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new VixConnectScraper().execute();
+                new VixConnectScraper().execute(url);
+                lastUpdated();
                 refreshSwipe.setRefreshing(false);
             }
         });
     }
 
-    private class VixConnectScraper extends AsyncTask<Void, Void, Void> {
-        protected Elements details;
-        protected Elements departures;
+    private void lastUpdated(){
+        TextView lastUpdateTxtView = (TextView) findViewById(R.id.lastUpdatedTxtView);
+        DateFormat dateFormat = getDateInstance();
+        Calendar cal = Calendar.getInstance();
+        lastUpdateTxtView.append(dateFormat.format(cal.getTime()));
+    }
 
+    private class VixConnectScraper extends AsyncTask<String, Void, Document> {
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Document doInBackground(String... params) {
             try {
-                Document doc = Jsoup.connect(url).get();
-                details = doc.getElementsByClass("emphasise");
-                departures = doc.getElementsByClass("body-cell");
+                return Jsoup.connect(params[0]).get();
             } catch (IOException e) {
                 setTitle("fail");
             }
@@ -56,8 +63,13 @@ public class BusStopActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            try {
+        protected void onPostExecute(Document doc){
+            //...Do something with doc
+        }
+    }
+}
+/*
+try {
                 setTitle(details.get(1).text());
             } catch(Exception e){setTitle("fail");}
 
@@ -103,12 +115,4 @@ public class BusStopActivity extends AppCompatActivity {
             }
             lastUpdated();
         }
-
-        private void lastUpdated(){
-            TextView lastUpdateTxtView = (TextView) findViewById(R.id.lastUpdatedTxtView);
-            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-            Calendar cal = Calendar.getInstance();
-            lastUpdateTxtView.setText("Last Updated: " + dateFormat.format(cal.getTime()));
-        }
-    }
-}
+ */

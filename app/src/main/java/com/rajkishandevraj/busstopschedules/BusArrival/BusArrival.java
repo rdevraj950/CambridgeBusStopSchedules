@@ -1,5 +1,7 @@
 package com.rajkishandevraj.busstopschedules.BusArrival;
 
+import java.util.ArrayList;
+
 public class BusArrival {
     private String _busNumber;
     private String _destination;
